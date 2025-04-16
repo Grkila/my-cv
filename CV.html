@@ -112,6 +112,17 @@
             background-color: #0056b3;
         }
         
+        /* Link styles */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
         /* Special styles for PDF export only */
         body.pdf-export {
             font-size: 0.8em;
@@ -194,8 +205,10 @@
         <div class="header">
             <h1>Dušan Grković</h1>
             <p>dusangrkovic2002@gmail.com | +38163514327</p>
-            <p>https://github.com/Grkila</p>
-            <p id="dynamic-url" style="display: none;"></p>
+            <p><a href="https://github.com/Grkila" target="_blank">https://github.com/Grkila</a></p>
+            <p id="dynamic-url" style="display: none;">
+            <a href="" id="dynamic-url-link"></a>
+            </p>
             <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">Download as PDF</button>
         </div>
 
@@ -211,7 +224,7 @@
             Relevant Coursework: Robotics, Embedded Systems, Industrial Automation, Signal Processing, Machine Learning<br>
             Academic Achievements: Consistently high academic record</p>
             <p><strong>Harvard CS50: Introduction to Computer Science</strong><br>
-            Online Certification, Completed 2022<br>
+            <a href="https://cs50.harvard.edu/" target="_blank">Online Certification</a>, Completed 2022<br>
             Mastered foundational computer science concepts, including algorithms, data structures, and software development.</p>
         </div>
 
@@ -261,7 +274,7 @@
             <div class="project">
                 <h4>Servo Controller with Arduino</h4>
                 <div class="description">
-                    <p><em>Technologies: Arduino, C, PWM</em></p>
+                    <p><em>Technologies: <a href="https://www.arduino.cc/" target="_blank">Arduino</a>, C, PWM</em></p>
                     <ul>
                         <li>Engineered a low-cost servo controller using a brushed motor and Arduino Uno, achieving precise motion control.</li>
                     </ul>
@@ -270,7 +283,7 @@
             <div class="project">
                 <h4>Wi-Fi AC Remote with ESP8266</h4>
                 <div class="description">
-                    <p><em>Technologies: ESP8266, C++</em></p>
+                    <p><em>Technologies: <a href="https://www.espressif.com/" target="_blank">ESP8266</a>, C++</em></p>
                     <ul>
                         <li>Built a remote control system with integrated temperature and humidity sensors, enabling smart home automation.</li>
                     </ul>
@@ -290,7 +303,7 @@
             <div class="project">
                 <h4>OpenCV Parking Space Detection</h4>
                 <div class="description">
-                    <p><em>Technologies: Python, OpenCV, Flask</em></p>
+                    <p><em>Technologies: Python, <a href="https://opencv.org/" target="_blank">OpenCV</a>, Flask</em></p>
                     <ul>
                         <li>Created a web application using OpenCV to detect available parking spaces in real-time, optimizing urban mobility.</li>
                     </ul>
@@ -348,7 +361,7 @@
         <div class="section">
             <h2>Leadership and Extracurricular Activities</h2>
             <ul>
-                <li><strong>Head Organizer, EESTEC LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
+                <li><strong>Head Organizer, <a href="https://eestec.net/" target="_blank">EESTEC</a> LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
                 <li><strong>HR Team Lead, EESTEC LC Novi Sad (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
                 <li><strong>Winner, Origin's Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
             </ul>
@@ -364,53 +377,58 @@
 
     <script>
         function downloadPDF() {
-    // Dodaj trenutni URL u dodatni paragraf
-    const urlElement = document.getElementById('dynamic-url');
-    urlElement.textContent = window.location.href;
-    urlElement.style.display = 'block';
+            // Dodaj trenutni URL u dodatni paragraf
+            const urlElement = document.getElementById('dynamic-url');
+const urlLinkElement = document.getElementById('dynamic-url-link');
+const currentUrl = window.location.href;
+urlLinkElement.href = currentUrl;
+urlLinkElement.textContent = currentUrl;
+urlElement.style.display = 'block';
 
-    // Dodaj PDF stilove
-    document.body.classList.add('pdf-export');
+            // Dodaj PDF stilove
+            document.body.classList.add('pdf-export');
 
-    const element = document.getElementById('cv-container');
+            const element = document.getElementById('cv-container');
 
-    html2pdf()
-        .set({
-            margin: [8, 8],
-            filename: 'Dusan_Grkovic_CV.pdf',
-            image: { type: 'jpeg', quality: 0.95 },
-            html2canvas: { 
-                scale: 2,
-                useCORS: true,
-                letterRendering: true,
-                scrollY: 0
-            },
-            jsPDF: { 
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-                compress: true,
-                precision: 16
-            }
-        })
-        .from(element)
-        .toPdf()
-        .get('pdf')
-        .then((pdf) => {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                pdf.setPage(i);
-                pdf.setFontSize(8);
-            }
-            return pdf;
-        })
-        .save()
-        .finally(() => {
-            // Resetuj view
-            document.body.classList.remove('pdf-export');
-            urlElement.style.display = 'none';
-        });
-}
+            html2pdf()
+                .set({
+                    margin: [8, 8],
+                    filename: 'Dusan_Grkovic_CV.pdf',
+                    image: { type: 'jpeg', quality: 0.95 },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        letterRendering: true,
+                        scrollY: 0
+                    },
+                    jsPDF: { 
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait',
+                        compress: true,
+                        precision: 16,
+                        enableLinks: true  // Enable links in PDF
+                    },
+                    pagebreak: { mode: 'avoid-all' }
+                })
+                .from(element)
+                .toPdf()
+                .get('pdf')
+                .then((pdf) => {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(8);
+                    }
+                    return pdf;
+                })
+                .save()
+                .finally(() => {
+                    // Resetuj view
+                    document.body.classList.remove('pdf-export');
+                    urlElement.style.display = 'none';
+                });
+        }
     </script>
 </body>
 </html>
