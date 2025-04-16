@@ -224,7 +224,7 @@
             Relevant Coursework: Robotics, Embedded Systems, Industrial Automation, Signal Processing, Machine Learning<br>
             Academic Achievements: Consistently high academic record</p>
             <p><strong>Harvard CS50: Introduction to Computer Science</strong><br>
-            <a href="https://cs50.harvard.edu/" target="_blank">Online Certification</a>, Completed 2022<br>
+            Online Certification, Completed 2022<br>
             Mastered foundational computer science concepts, including algorithms, data structures, and software development.</p>
         </div>
 
@@ -361,9 +361,9 @@
         <div class="section">
             <h2>Leadership and Extracurricular Activities</h2>
             <ul>
-                <li><strong>Head Organizer, <a href="https://eestec.net/" target="_blank">EESTEC</a> LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
-                <li><strong>HR Team Lead, EESTEC LC Novi Sad (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
-                <li><strong>Winner, Origin's Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
+                <li><strong>Head Organizer, <a href="https://www.eestecns.org/" target="_blank">EESTEC LC Novi Sad</a>  Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
+                <li><strong>HR Team Lead, <a href="https://www.eestecns.org/" target="_blank">EESTEC LC Novi Sad</a> (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
+                <li><strong>Winner of Origin's Case Study at <a href="https://www.ev-days.rs/" target="_blank">EV DAYS</a>  (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
             </ul>
         </div>
         <div class="section">
@@ -396,7 +396,7 @@ urlElement.style.display = 'block';
                     filename: 'Dusan_Grkovic_CV.pdf',
                     image: { type: 'jpeg', quality: 0.95 },
                     html2canvas: { 
-                        scale: 2,
+                        scale: 1.5,
                         useCORS: true,
                         letterRendering: true,
                         scrollY: 0
@@ -409,7 +409,7 @@ urlElement.style.display = 'block';
                         precision: 16,
                         enableLinks: true  // Enable links in PDF
                     },
-                    pagebreak: { mode: 'avoid-all' }
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Enhanced page break control
                 })
                 .from(element)
                 .toPdf()
