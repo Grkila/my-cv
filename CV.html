@@ -1,149 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dušan Grković - Curriculum Vitae</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <style>
-        /* Combined and optimized CSS styles */
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-            font-size: 1em;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.2em;
-            color: #007bff;
-        }
-        .header p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #555;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            font-size: 1.5em;
-            color: #007bff;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-        .section h3 {
-            font-size: 1.2em;
-            margin: 10px 0 5px 0;
-        }
-        .section ul {
-            padding-left: 20px;
-        }
-        .project h4 {
-            font-size: 1.1em;
-            margin: 0 0 5px 0;
-            cursor: pointer;
-            position: relative;
-            padding-left: 20px;
-        }
-        .project h4::before {
-            content: '\2022';
-            position: absolute;
-            left: 0;
-            color: #007bff;
-        }
-        .project .description {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        .project h4:hover ~ .description {
-            max-height: 1000px;
-        }
-        .download-btn {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 1em;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dušan Grković - Curriculum Vitae</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    /* Combined and optimized CSS styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+      font-size: 1em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      color: #007bff;
+    }
+    .header p {
+      margin: 5px 0;
+      font-size: 1em;
+      color: #555;
+    }
+    /* Hide the website URL by default */
+    #websiteUrlContainer {
+      display: none;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: 1.5em;
+      color: #007bff;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    .section h3 {
+      font-size: 1.2em;
+      margin: 10px 0 5px 0;
+    }
+    .section ul {
+      padding-left: 20px;
+    }
+    .project h4 {
+      font-size: 1.1em;
+      margin: 0 0 5px 0;
+      cursor: pointer;
+      position: relative;
+      padding-left: 20px;
+    }
+    .project h4::before {
+      content: '\2022';
+      position: absolute;
+      left: 0;
+      color: #007bff;
+    }
+    .project .description {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .project h4:hover ~ .description {
+      max-height: 1000px;
+    }
+    .download-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 1em;
+    }
 
-        /* PDF-specific styles */
-        body.pdf-export {
-            font-size: 0.8em;
-            line-height: 1.3;
-        }
-        @media print {
-            body { background: #fff; }
-            .container { box-shadow: none; }
-            .download-btn { display: none; }
-        }
-    </style>
+    /* PDF-specific styles */
+    body.pdf-export {
+      font-size: 0.8em;
+      line-height: 1.3;
+    }
+    @media print {
+      body { background: #fff; }
+      .container { box-shadow: none; }
+      .download-btn { display: none; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container" id="cv-container">
-        <div class="header">
-            <h1>Dušan Grković</h1>
-            <p>dusangrkovic2002@gmail.com | +38163514327</p>
-            <p>https://github.com/Grkila</p>
-            <p>Website: <span id="websiteUrl"></span></p>
-            <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
-        </div>
-
-        <!-- All CV content sections from the second document -->
-        <div class="section">
-            <h2>Professional Summary</h2>
-            <p>Fourth-year Control Systems Engineering student with a passion for robotics, embedded systems, and automation. Proficient in control algorithms, microcontroller programming, and computer vision...</p>
-        </div>
-
-        <!-- Include all other sections (Education, Technical Skills, Projects, etc.) -->
-        <!-- ... -->
-
+  <div class="container" id="cv-container">
+    <div class="header">
+      <h1>Dušan Grković</h1>
+      <p>dusangrkovic2002@gmail.com | +38163514327</p>
+      <p>https://github.com/Grkila</p>
+      <!-- Website URL container hidden by default -->
+      <p id="websiteUrlContainer">Website: <span id="websiteUrl"></span></p>
+      <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
     </div>
 
-    <script>
-        // Combined JavaScript functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('websiteUrl').textContent = window.location.href;
-        });
+    <!-- All CV content sections from the second document -->
+    <div class="section">
+      <h2>Professional Summary</h2>
+      <p>Fourth-year Control Systems Engineering student with a passion for robotics, embedded systems, and automation. Proficient in control algorithms, microcontroller programming, and computer vision...</p>
+    </div>
+    <!-- Include all other sections (Education, Technical Skills, Projects, etc.) -->
+    <!-- ... -->
 
-        function downloadPDF() {
-            document.body.classList.add('pdf-export');
-            const element = document.getElementById('cv-container');
-            
-            html2pdf()
-                .set({
-                    margin: [8, 8],
-                    filename: 'Dusan_Grkovic_CV.pdf',
-                    image: { type: 'jpeg', quality: 0.95 },
-                    html2canvas: { scale: 2 },
-                    jsPDF: { unit: 'mm', format: 'a4' }
-                })
-                .from(element)
-                .save()
-                .finally(() => {
-                    document.body.classList.remove('pdf-export');
-                });
-        }
-    </script>
+  </div>
+
+  <script>
+    // On DOM load, update the website URL span with the current page URL
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('websiteUrl').textContent = window.location.href;
+    });
+
+    function downloadPDF() {
+      // Show website URL paragraph before generating PDF
+      var websiteContainer = document.getElementById('websiteUrlContainer');
+      websiteContainer.style.display = "block";
+
+      // Add PDF specific style if needed
+      document.body.classList.add('pdf-export');
+      const element = document.getElementById('cv-container');
+
+      html2pdf()
+        .set({
+          margin: [8, 8],
+          filename: 'Dusan_Grkovic_CV.pdf',
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4' }
+        })
+        .from(element)
+        .save()
+        .finally(() => {
+          // Hide the website URL after PDF generation and remove the PDF specific style
+          websiteContainer.style.display = "none";
+          document.body.classList.remove('pdf-export');
+        });
+    }
+  </script>
 </body>
 </html>
