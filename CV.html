@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -65,19 +66,15 @@
             margin: 0 0 5px 0;
             color: #333;
             cursor: pointer;
+            position: relative;
+            padding-left: 20px;
         }
-        .project h4 {
-    position: relative;
-    padding-left: 20px;
-    margin: 0 0 5px 0;
-}
-
-.project h4::before {
-    content: '\2022'; /* Unicode za tačku */
-    position: absolute;
-    left: 0;
-    color: #007bff; /* Opciona boja za usklađivanje sa temom */
-}
+        .project h4::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: #007bff;
+        }
         .project .description {
             max-height: 0;
             overflow: hidden;
@@ -95,6 +92,19 @@
             margin: 0;
             padding-left: 15px;
         }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         @media print {
             body {
                 background: #fff;
@@ -107,12 +117,19 @@
             .header {
                 border-bottom: 2px solid #007bff;
             }
-            .project .description {
-                max-height: none;
-                overflow: visible;
+            button {
+                display: none;
             }
             @page {
                 margin: 1cm;
+            }
+        }
+        @media print {
+            body.pdf-export .project .description {
+                display: none !important;
+            }
+            body.pdf-export button {
+                display: none !important;
             }
         }
     </style>
@@ -123,6 +140,7 @@
             <h1>Dušan Grković</h1>
             <p>dusangrkovic2002@gmail.com | +38163514327</p>
             <p>https://github.com/Grkila</p>
+            <button onclick="downloadPDF()">Download as PDF</button>
         </div>
 
         <div class="section">
@@ -276,7 +294,7 @@
             <ul>
                 <li><strong>Head Organizer, EESTEC LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
                 <li><strong>HR Team Lead, EESTEC LC Novi Sad (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
-                <li><strong>Winner, Origin’s Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
+                <li><strong>Winner, Origin's Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
             </ul>
         </div>
 
@@ -297,5 +315,24 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        function downloadPDF() {
+            document.body.classList.add('pdf-export');
+            const element = document.querySelector('.container');
+            html2pdf()
+                .set({
+                    margin: [15, 5],
+                    filename: 'Dusan_Grkovic_CV.pdf',
+                    html2canvas: { scale: 2 },
+                    jsPDF: { format: 'a4', orientation: 'portrait' }
+                })
+                .from(element)
+                .save()
+                .finally(() => {
+                    document.body.classList.remove('pdf-export');
+                });
+        }
+    </script>
 </body>
 </html>
