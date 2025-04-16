@@ -1,416 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Vitae</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-            font-size: 1em; /* Larger font for website viewing */
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.2em;
-            color: #007bff;
-        }
-        .header p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #555;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            font-size: 1.5em;
-            color: #007bff;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-        .section h3 {
-            font-size: 1.2em;
-            margin: 10px 0 5px 0;
-        }
-        .section p, .section ul {
-            margin: 0 0 10px 0;
-            font-size: 0.95em;
-        }
-        .section ul {
-            padding-left: 20px;
-        }
-        .section ul li {
-            margin-bottom: 8px;
-        }
-        .project {
-            margin-bottom: 0;
-        }
-        .project h4 {
-            font-size: 1.1em;
-            margin: 0 0 5px 0;
-            color: #333;
-            cursor: pointer;
-            position: relative;
-            padding-left: 20px;
-        }
-        .project h4::before {
-            content: '\2022';
-            position: absolute;
-            left: 0;
-            color: #007bff;
-        }
-        .project .description {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        .project h4:hover ~ .description {
-            max-height: 1000px;
-        }
-        .project p {
-            margin: 0 0 5px 0;
-            font-style: italic;
-            color: #666;
-        }
-        .project ul {
-            margin: 0;
-            padding-left: 15px;
-        }
-        .download-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            font-size: 1em;
-        }
-        .download-btn:hover {
-            background-color: #0056b3;
-        }
-        
-        /* Special styles for PDF export only */
-        body.pdf-export {
-            font-size: 0.8em;
-            line-height: 1.3;
-        }
-        body.pdf-export .container {
-            padding: 15px;
-        }
-        body.pdf-export .header {
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        body.pdf-export .header h1 {
-            font-size: 1.7em;
-        }
-        body.pdf-export .header p {
-            margin: 2px 0;
-            font-size: 0.9em;
-        }
-        body.pdf-export .section {
-            margin-bottom: 8px;
-        }
-        body.pdf-export .section h2 {
-            font-size: 1.2em;
-            padding-bottom: 2px;
-            margin: 5px 0 3px 0;
-        }
-        body.pdf-export .section h3 {
-            font-size: 1em;
-            margin: 4px 0 2px 0;
-        }
-        body.pdf-export .section p, 
-        body.pdf-export .section ul {
-            margin: 0 0 4px 0;
-        }
-        body.pdf-export .section ul {
-            padding-left: 16px;
-        }
-        body.pdf-export .section ul li {
-            margin-bottom: 3px;
-        }
-        body.pdf-export .project h4 {
-            font-size: 0.95em;
-            padding-left: 12px;
-        }
-        body.pdf-export .project .description {
-            display: none !important;
-        }
-        body.pdf-export .download-btn {
-            display: none !important;
-        }
-        
-        @media print {
-            body {
-                background: #fff;
-                font-size: 0.8em;
-                line-height: 1.3;
-            }
-            .container {
-                margin: 0;
-                box-shadow: none;
-                padding: 10px;
-            }
-            .header {
-                padding-bottom: 10px;
-                margin-bottom: 10px;
-            }
-            .download-btn {
-                display: none;
-            }
-            @page {
-                margin: 0.5cm;
-                size: A4 portrait;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Vitae</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- jsPDF library with html() method -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+      body {
+          font-family: 'Roboto', sans-serif;
+          margin: 0;
+          padding: 0;
+          line-height: 1.6;
+          color: #333;
+          background-color: #f9f9f9;
+          font-size: 1em; /* Larger font for website viewing */
+      }
+      .container {
+          max-width: 800px;
+          margin: 20px auto;
+          background: #fff;
+          padding: 30px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      .header {
+          text-align: center;
+          border-bottom: 2px solid #007bff;
+          padding-bottom: 20px;
+          margin-bottom: 20px;
+      }
+      .header h1 {
+          margin: 0;
+          font-size: 2.2em;
+          color: #007bff;
+      }
+      .header p {
+          margin: 5px 0;
+          font-size: 1em;
+          color: #555;
+      }
+      .section {
+          margin-bottom: 20px;
+      }
+      .section h2 {
+          font-size: 1.5em;
+          color: #007bff;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+      }
+      .section h3 {
+          font-size: 1.2em;
+          margin: 10px 0 5px 0;
+      }
+      .section p, .section ul {
+          margin: 0 0 10px 0;
+          font-size: 0.95em;
+      }
+      .section ul {
+          padding-left: 20px;
+      }
+      .section ul li {
+          margin-bottom: 8px;
+      }
+      .project {
+          margin-bottom: 0;
+      }
+      .project h4 {
+          font-size: 1.1em;
+          margin: 0 0 5px 0;
+          color: #333;
+          cursor: pointer;
+          position: relative;
+          padding-left: 20px;
+      }
+      .project h4::before {
+          content: '\2022';
+          position: absolute;
+          left: 0;
+          color: #007bff;
+      }
+      .project .description {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+      }
+      .project h4:hover ~ .description {
+          max-height: 1000px;
+      }
+      .project p {
+          margin: 0 0 5px 0;
+          font-style: italic;
+          color: #666;
+      }
+      .project ul {
+          margin: 0;
+          padding-left: 15px;
+      }
+      .download-btn {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          margin-top: 10px;
+          transition: background-color 0.3s;
+          font-size: 1em;
+      }
+      .download-btn:hover {
+          background-color: #0056b3;
+      }
+      
+      /* Special styles for PDF export only */
+      body.pdf-export {
+          font-size: 0.8em;
+          line-height: 1.3;
+      }
+      body.pdf-export .container {
+          padding: 15px;
+      }
+      body.pdf-export .header {
+          padding-bottom: 10px;
+          margin-bottom: 10px;
+      }
+      body.pdf-export .header h1 {
+          font-size: 1.7em;
+      }
+      body.pdf-export .header p {
+          margin: 2px 0;
+          font-size: 0.9em;
+      }
+      body.pdf-export .section {
+          margin-bottom: 8px;
+      }
+      body.pdf-export .section h2 {
+          font-size: 1.2em;
+          padding-bottom: 2px;
+          margin: 5px 0 3px 0;
+      }
+      body.pdf-export .section h3 {
+          font-size: 1em;
+          margin: 4px 0 2px 0;
+      }
+      body.pdf-export .section p, 
+      body.pdf-export .section ul {
+          margin: 0 0 4px 0;
+      }
+      body.pdf-export .section ul {
+          padding-left: 16px;
+      }
+      body.pdf-export .section ul li {
+          margin-bottom: 3px;
+      }
+      body.pdf-export .project h4 {
+          font-size: 0.95em;
+          padding-left: 12px;
+      }
+      body.pdf-export .project .description {
+          display: none !important;
+      }
+      body.pdf-export .download-btn {
+          display: none !important;
+      }
+      
+      @media print {
+          body {
+              background: #fff;
+              font-size: 0.8em;
+              line-height: 1.3;
+          }
+          .container {
+              margin: 0;
+              box-shadow: none;
+              padding: 10px;
+          }
+          .header {
+              padding-bottom: 10px;
+              margin-bottom: 10px;
+          }
+          .download-btn {
+              display: none;
+          }
+          @page {
+              margin: 0.5cm;
+              size: A4 portrait;
+          }
+      }
+  </style>
 </head>
 <body>
-    <div class="container" id="cv-container">
-        <div class="header">
-            <h1>Dušan Grković</h1>
-            <p>dusangrkovic2002@gmail.com | +38163514327</p>
-            <p>https://github.com/Grkila</p>
-            <p id="dynamic-url" style="display: none;"></p>
-            <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">Download as PDF</button>
-        </div>
+  <div class="container" id="cv-container">
+      <div class="header">
+          <h1>Dušan Grković</h1>
+          <p>dusangrkovic2002@gmail.com | +38163514327</p>
+          <!-- Make sure GitHub link is clickable -->
+          <p><a href="https://github.com/Grkila" target="_blank">https://github.com/Grkila</a></p>
+          <!-- Dynamic URL will be added here as a clickable link during PDF generation -->
+          <p id="dynamic-url" style="display: none;"></p>
+          <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">Download as PDF</button>
+      </div>
 
-        <div class="section">
-            <h2>Professional Summary</h2>
-            <p>Fourth-year Control Systems Engineering student with a passion for robotics, embedded systems, and automation. Proficient in control algorithms, microcontroller programming, and computer vision, demonstrated through projects like robot manipulator simulations and IoT-based automation systems. Strong leadership and teamwork skills, developed as head organizer of events and HR team lead at EESTEC LC Novi Sad (2022–2023).</p>
-        </div>
+      <div class="section">
+          <h2>Professional Summary</h2>
+          <p>Fourth-year Control Systems Engineering student with a passion for robotics, embedded systems, and automation. Proficient in control algorithms, microcontroller programming, and computer vision, demonstrated through projects like robot manipulator simulations and IoT-based automation systems. Strong leadership and teamwork skills, developed as head organizer of events and HR team lead at EESTEC LC Novi Sad (2022–2023).</p>
+      </div>
 
-        <div class="section">
-            <h2>Education</h2>
-            <p><strong>Bachelor of Science in Control Systems Engineering</strong><br>
-            Faculty of Technical Sciences in Novi Sad, Novi Sad, Serbia<br>
-            Relevant Coursework: Robotics, Embedded Systems, Industrial Automation, Signal Processing, Machine Learning<br>
-            Academic Achievements: Consistently high academic record</p>
-            <p><strong>Harvard CS50: Introduction to Computer Science</strong><br>
-            Online Certification, Completed 2022<br>
-            Mastered foundational computer science concepts, including algorithms, data structures, and software development.</p>
-        </div>
+      <div class="section">
+          <h2>Education</h2>
+          <p><strong>Bachelor of Science in Control Systems Engineering</strong><br>
+          Faculty of Technical Sciences in Novi Sad, Novi Sad, Serbia<br>
+          Relevant Coursework: Robotics, Embedded Systems, Industrial Automation, Signal Processing, Machine Learning<br>
+          Academic Achievements: Consistently high academic record</p>
+          <p><strong>Harvard CS50: Introduction to Computer Science</strong><br>
+          Online Certification, Completed 2022<br>
+          Mastered foundational computer science concepts, including algorithms, data structures, and software development.</p>
+      </div>
 
-        <div class="section">
-            <h2>Technical Skills</h2>
-            <ul>
-                <li><strong>Programming Languages:</strong> C, C++, Python, MATLAB, VHDL, Ladder Logic</li>
-                <li><strong>Tools & Frameworks:</strong> Simulink, LabVIEW, OpenCV, Arduino, ESP32, STM32, Siemens PLC</li>
-                <li><strong>Technologies:</strong> Embedded Systems, Control Systems (PID, SMC, Fuzzy, RL), Computer Vision, Bluetooth, Wi-Fi, Modbus, FPGA</li>
-                <li><strong>Software:</strong> Visual Studio Code, Keil uVision, Android Studio, Quartus Prime</li>
-                <li><strong>Other:</strong> Sensor Fusion, Real-Time Systems, Machine Learning, PLC Programming</li>
-            </ul>
-        </div>
+      <div class="section">
+          <h2>Technical Skills</h2>
+          <ul>
+              <li><strong>Programming Languages:</strong> C, C++, Python, MATLAB, VHDL, Ladder Logic</li>
+              <li><strong>Tools & Frameworks:</strong> Simulink, LabVIEW, OpenCV, Arduino, ESP32, STM32, Siemens PLC</li>
+              <li><strong>Technologies:</strong> Embedded Systems, Control Systems (PID, SMC, Fuzzy, RL), Computer Vision, Bluetooth, Wi-Fi, Modbus, FPGA</li>
+              <li><strong>Software:</strong> Visual Studio Code, Keil uVision, Android Studio, Quartus Prime</li>
+              <li><strong>Other:</strong> Sensor Fusion, Real-Time Systems, Machine Learning, PLC Programming</li>
+          </ul>
+      </div>
 
-        <div class="section">
-            <h2>Key Projects and Achievements</h2>
-            <h3>Robotics and Control Systems</h3>
-            <div class="project">
-                <h4>Two-Joint Robot Manipulator Simulation</h4>
-                <div class="description">
-                    <p><em>Technologies: MATLAB, Simulink, LabVIEW, FPGA</em></p>
-                    <ul>
-                        <li>Developed software-in-the-loop (SIL) and hardware-in-the-loop (HIL) simulations, comparing PID, SMC, and Fuzzy control algorithms for optimized robotic arm performance.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Bluetooth-Controlled Rover</h4>
-                <div class="description">
-                    <p><em>Technologies: ESP32, STM32, ESP-NOW, BLDC Motors</em></p>
-                    <ul>
-                        <li>Designed a rover using ESP32 and STM32-based BLDC drivers with traction control, leveraging ESP-NOW for robust wireless communication.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Siemens PLC Programming</h4>
-                <div class="description">
-                    <p><em>Technologies: Siemens TIA Portal, Ladder Logic</em></p>
-                    <ul>
-                        <li>Completed practical projects applying Ladder Logic for industrial automation, demonstrating proficiency in PLC-based control.</li>
-                    </ul>
-                </div>
-            </div>
+      <div class="section">
+          <h2>Key Projects and Achievements</h2>
+          <h3>Robotics and Control Systems</h3>
+          <div class="project">
+              <h4>Two-Joint Robot Manipulator Simulation</h4>
+              <div class="description">
+                  <p><em>Technologies: MATLAB, Simulink, LabVIEW, FPGA</em></p>
+                  <ul>
+                      <li>Developed software-in-the-loop (SIL) and hardware-in-the-loop (HIL) simulations, comparing PID, SMC, and Fuzzy control algorithms for optimized robotic arm performance.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Bluetooth-Controlled Rover</h4>
+              <div class="description">
+                  <p><em>Technologies: ESP32, STM32, ESP-NOW, BLDC Motors</em></p>
+                  <ul>
+                      <li>Designed a rover using ESP32 and STM32-based BLDC drivers with traction control, leveraging ESP-NOW for robust wireless communication.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Siemens PLC Programming</h4>
+              <div class="description">
+                  <p><em>Technologies: Siemens TIA Portal, Ladder Logic</em></p>
+                  <ul>
+                      <li>Completed practical projects applying Ladder Logic for industrial automation, demonstrating proficiency in PLC-based control.</li>
+                  </ul>
+              </div>
+          </div>
 
-            <h3>Embedded Systems</h3>
-            <div class="project">
-                <h4>Servo Controller with Arduino</h4>
-                <div class="description">
-                    <p><em>Technologies: Arduino, C, PWM</em></p>
-                    <ul>
-                        <li>Engineered a low-cost servo controller using a brushed motor and Arduino Uno, achieving precise motion control.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Wi-Fi AC Remote with ESP8266</h4>
-                <div class="description">
-                    <p><em>Technologies: ESP8266, C++</em></p>
-                    <ul>
-                        <li>Built a remote control system with integrated temperature and humidity sensors, enabling smart home automation.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Bare-Metal Modbus Protocol</h4>
-                <div class="description">
-                    <p><em>Technologies: Intel 8051, C, Modbus RTU</em></p>
-                    <ul>
-                        <li>Implemented Modbus communication on an Intel 8051 microcontroller, ensuring reliable data exchange in resource-constrained environments.</li>
-                    </ul>
-                </div>
-            </div>
+          <h3>Embedded Systems</h3>
+          <div class="project">
+              <h4>Servo Controller with Arduino</h4>
+              <div class="description">
+                  <p><em>Technologies: Arduino, C, PWM</em></p>
+                  <ul>
+                      <li>Engineered a low-cost servo controller using a brushed motor and Arduino Uno, achieving precise motion control.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Wi-Fi AC Remote with ESP8266</h4>
+              <div class="description">
+                  <p><em>Technologies: ESP8266, C++</em></p>
+                  <ul>
+                      <li>Built a remote control system with integrated temperature and humidity sensors, enabling smart home automation.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Bare-Metal Modbus Protocol</h4>
+              <div class="description">
+                  <p><em>Technologies: Intel 8051, C, Modbus RTU</em></p>
+                  <ul>
+                      <li>Implemented Modbus communication on an Intel 8051 microcontroller, ensuring reliable data exchange in resource-constrained environments.</li>
+                  </ul>
+              </div>
+          </div>
 
-            <h3>Computer Vision and Machine Learning</h3>
-            <div class="project">
-                <h4>OpenCV Parking Space Detection</h4>
-                <div class="description">
-                    <p><em>Technologies: Python, OpenCV, Flask</em></p>
-                    <ul>
-                        <li>Created a web application using OpenCV to detect available parking spaces in real-time, optimizing urban mobility.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Machine Learning Diabetes Prediction</h4>
-                <div class="description">
-                    <p><em>Technologies: Python, Scikit-learn, Pandas</em></p>
-                    <ul>
-                        <li>Developed a predictive model using machine learning to identify diabetes risk, achieving high accuracy on test datasets.</li>
-                    </ul>
-                </div>
-            </div>
+          <h3>Computer Vision and Machine Learning</h3>
+          <div class="project">
+              <h4>OpenCV Parking Space Detection</h4>
+              <div class="description">
+                  <p><em>Technologies: Python, OpenCV, Flask</em></p>
+                  <ul>
+                      <li>Created a web application using OpenCV to detect available parking spaces in real-time, optimizing urban mobility.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Machine Learning Diabetes Prediction</h4>
+              <div class="description">
+                  <p><em>Technologies: Python, Scikit-learn, Pandas</em></p>
+                  <ul>
+                      <li>Developed a predictive model using machine learning to identify diabetes risk, achieving high accuracy on test datasets.</li>
+                  </ul>
+              </div>
+          </div>
 
-            <h3>Signal Processing and Software Development</h3>
-            <div class="project">
-                <h4>Android Sensor Fusion Interface</h4>
-                <div class="description">
-                    <p><em>Technologies: Android Studio, Java, Bluetooth</em></p>
-                    <ul>
-                        <li>Designed an Android app for sensor fusion, interfacing with a microcontroller via Bluetooth for real-time data processing.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Noise Cancellation Analysis</h4>
-                <div class="description">
-                    <p><em>Technologies: MATLAB, Signal Processing</em></p>
-                    <ul>
-                        <li>Compared FFT-based noise cancellation in MATLAB with analog filter designs, evaluating performance trade-offs.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Edge Detection Filter in C</h4>
-                <div class="description">
-                    <p><em>Technologies: C, Image Processing</em></p>
-                    <ul>
-                        <li>Implemented an efficient image processing algorithm for edge detection, optimized for performance.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="project">
-                <h4>Data Recovery for JPEG Images</h4>
-                <div class="description">
-                    <p><em>Technologies: C, File Systems</em></p>
-                    <ul>
-                        <li>Wrote a C program to recover JPEG images from raw binary dumps, demonstrating low-level data manipulation.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+          <h3>Signal Processing and Software Development</h3>
+          <div class="project">
+              <h4>Android Sensor Fusion Interface</h4>
+              <div class="description">
+                  <p><em>Technologies: Android Studio, Java, Bluetooth</em></p>
+                  <ul>
+                      <li>Designed an Android app for sensor fusion, interfacing with a microcontroller via Bluetooth for real-time data processing.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Noise Cancellation Analysis</h4>
+              <div class="description">
+                  <p><em>Technologies: MATLAB, Signal Processing</em></p>
+                  <ul>
+                      <li>Compared FFT-based noise cancellation in MATLAB with analog filter designs, evaluating performance trade-offs.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Edge Detection Filter in C</h4>
+              <div class="description">
+                  <p><em>Technologies: C, Image Processing</em></p>
+                  <ul>
+                      <li>Implemented an efficient image processing algorithm for edge detection, optimized for performance.</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="project">
+              <h4>Data Recovery for JPEG Images</h4>
+              <div class="description">
+                  <p><em>Technologies: C, File Systems</em></p>
+                  <ul>
+                      <li>Wrote a C program to recover JPEG images from raw binary dumps, demonstrating low-level data manipulation.</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
 
-        <div class="section">
-            <h2>Leadership and Extracurricular Activities</h2>
-            <ul>
-                <li><strong>Head Organizer, EESTEC LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
-                <li><strong>HR Team Lead, EESTEC LC Novi Sad (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
-                <li><strong>Winner, Origin's Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>Languages</h2>
-            <ul>
-                <li><strong>English:</strong> Fluent</li>
-                <li><strong>Serbian:</strong> Native</li>
-            </ul>
-        </div>
-    </div>
+      <div class="section">
+          <h2>Leadership and Extracurricular Activities</h2>
+          <ul>
+              <li><strong>Head Organizer, EESTEC LC Novi Sad Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
+              <li><strong>HR Team Lead, EESTEC LC Novi Sad (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
+              <li><strong>Winner, Origin's Case Study at EV DAYS (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
+          </ul>
+      </div>
+      <div class="section">
+          <h2>Languages</h2>
+          <ul>
+              <li><strong>English:</strong> Fluent</li>
+              <li><strong>Serbian:</strong> Native</li>
+          </ul>
+      </div>
+  </div>
 
-    <script>
-        function downloadPDF() {
-    // Dodaj trenutni URL u dodatni paragraf
-    const urlElement = document.getElementById('dynamic-url');
-    urlElement.textContent = window.location.href;
-    urlElement.style.display = 'block';
+  <script>
+      async function downloadPDF() {
+          // Update and display the dynamic URL as a clickable anchor element
+          const currentUrl = window.location.href;
+          const dynamicUrlElem = document.getElementById('dynamic-url');
+          dynamicUrlElem.innerHTML = `<a href="${currentUrl}" target="_blank">${currentUrl}</a>`;
+          dynamicUrlElem.style.display = 'block';
+          
+          // Add PDF-specific class if needed
+          document.body.classList.add('pdf-export');
 
-    // Dodaj PDF stilove
-    document.body.classList.add('pdf-export');
+          // Get jsPDF from the included library
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF({
+              unit: 'mm',
+              format: 'a4',
+              orientation: 'portrait',
+              compress: true,
+              precision: 16
+          });
 
-    const element = document.getElementById('cv-container');
-
-    html2pdf()
-        .set({
-            margin: [8, 8],
-            filename: 'Dusan_Grkovic_CV.pdf',
-            image: { type: 'jpeg', quality: 0.95 },
-            html2canvas: { 
-                scale: 2,
-                useCORS: true,
-                letterRendering: true,
-                scrollY: 0
-            },
-            jsPDF: { 
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-                compress: true,
-                precision: 16
-            }
-        })
-        .from(element)
-        .toPdf()
-        .get('pdf')
-        .then((pdf) => {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                pdf.setPage(i);
-                pdf.setFontSize(8);
-            }
-            return pdf;
-        })
-        .save()
-        .finally(() => {
-            // Resetuj view
-            document.body.classList.remove('pdf-export');
-            urlElement.style.display = 'none';
-        });
-}
-    </script>
+          // Render the HTML element into the PDF while preserving links
+          pdf.html(document.getElementById('cv-container'), {
+              callback: function (pdf) {
+                  pdf.save('Dusan_Grkovic_CV.pdf');
+                  // Reset view after saving
+                  document.body.classList.remove('pdf-export');
+                  dynamicUrlElem.style.display = 'none';
+              },
+              x: 10,
+              y: 10,
+              html2canvas: {
+                  useCORS: true,
+                  letterRendering: true,
+              }
+          });
+      }
+  </script>
 </body>
 </html>
