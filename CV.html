@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -28,6 +27,7 @@
             border-bottom: 2px solid #007bff;
             padding-bottom: 20px;
             margin-bottom: 20px;
+            position: relative;
         }
         .header h1 {
             margin: 0;
@@ -39,6 +39,29 @@
             font-size: 1em;
             color: #555;
         }
+        
+        /* PDF Download Button - Top Right Corner */
+        .pdf-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+        }
+        .pdf-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+        }
+        
         .section {
             margin-bottom: 20px;
         }
@@ -73,6 +96,7 @@
             cursor: pointer;
             position: relative;
             padding-left: 20px;
+            font-weight: normal;
         }
         .project h4::before {
             content: '\2022';
@@ -97,20 +121,6 @@
             margin: 0;
             padding-left: 15px;
         }
-        .download-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            font-size: 1em;
-        }
-        .download-btn:hover {
-            background-color: #0056b3;
-        }
         
         /* Link styles */
         a {
@@ -123,79 +133,90 @@
             text-decoration: underline;
         }
         
-        /* Special styles for PDF export only */
-        body.pdf-export {
-            font-size: 0.8em;
-            line-height: 1.3;
-        }
-        body.pdf-export .container {
-            padding: 15px;
-        }
-        body.pdf-export .header {
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        body.pdf-export .header h1 {
-            font-size: 1.7em;
-        }
-        body.pdf-export .header p {
-            margin: 2px 0;
-            font-size: 0.9em;
-        }
-        body.pdf-export .section {
-            margin-bottom: 8px;
-        }
-        body.pdf-export .section h2 {
-            font-size: 1.2em;
-            padding-bottom: 2px;
-            margin: 5px 0 3px 0;
-        }
-        body.pdf-export .section h3 {
-            font-size: 1em;
-            margin: 4px 0 2px 0;
-        }
-        body.pdf-export .section p, 
-        body.pdf-export .section ul {
-            margin: 0 0 4px 0;
-        }
-        body.pdf-export .section ul {
-            padding-left: 16px;
-        }
-        body.pdf-export .section ul li {
-            margin-bottom: 3px;
-        }
-        body.pdf-export .project h4 {
-            font-size: 0.95em;
-            padding-left: 12px;
-        }
-        body.pdf-export .project .description {
-            display: none !important;
-        }
-        body.pdf-export .download-btn {
-            display: none !important;
-        }
-        
+        /* Enhanced print styles for PDF export */
         @media print {
             body {
                 background: #fff;
-                font-size: 0.8em;
-                line-height: 1.3;
+                font-size: 0.85em;
+                line-height: 1.4;
+                color: #000;
             }
             .container {
                 margin: 0;
                 box-shadow: none;
-                padding: 10px;
+                padding: 15mm;
+                max-width: none;
             }
             .header {
                 padding-bottom: 10px;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #000;
             }
-            .download-btn {
-                display: none;
+            .header h1 {
+                font-size: 1.8em;
+                color: #000;
+                margin-bottom: 8px;
             }
+            .header p {
+                margin: 3px 0;
+                font-size: 0.9em;
+                color: #000;
+            }
+            .pdf-btn {
+                display: none !important;
+            }
+            .section {
+                margin-bottom: 12px;
+                page-break-inside: avoid;
+            }
+            .section h2 {
+                font-size: 1.3em;
+                color: #000;
+                border-bottom: 1px solid #333;
+                padding-bottom: 3px;
+                margin: 8px 0 6px 0;
+                page-break-after: avoid;
+            }
+            .section h3 {
+                font-size: 1.1em;
+                margin: 6px 0 4px 0;
+                page-break-after: avoid;
+            }
+            .section p, .section ul {
+                margin: 0 0 6px 0;
+                font-size: 0.9em;
+            }
+            .section ul {
+                padding-left: 18px;
+            }
+            .section ul li {
+                margin-bottom: 4px;
+            }
+            .project h4 {
+                font-size: 1em;
+                padding-left: 12px;
+                page-break-after: avoid;
+            }
+            .project .description {
+                display: none !important;
+            }
+            
+            /* Prevent awkward page breaks */
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            /* Ensure proper page margins */
             @page {
-                margin: 0.5cm;
+                margin: 15mm;
                 size: A4 portrait;
+            }
+            
+            /* Show URL in print */
+            #dynamic-url {
+                display: block !important;
+                font-size: 0.8em;
+                margin-top: 5px;
             }
         }
     </style>
@@ -203,13 +224,13 @@
 <body>
     <div class="container" id="cv-container">
         <div class="header">
+            <button class="pdf-btn" onclick="downloadPDF()" title="Download as PDF">📄 PDF</button>
             <h1>Dušan Grković</h1>
             <p>dusangrkovic2002@gmail.com | +38163514327</p>
             <p><a href="https://github.com/Grkila" target="_blank">https://github.com/Grkila</a></p>
             <p id="dynamic-url" style="display: none;">
-            <a href="" id="dynamic-url-link"></a>
+                <a href="" id="dynamic-url-link"></a>
             </p>
-            <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">Download as PDF</button>
         </div>
 
         <div class="section">
@@ -407,10 +428,10 @@
                 <li><strong>Head Organizer, <a href="https://www.eestecns.org/" target="_blank">EESTEC LC Novi Sad</a>  Events (2022–2023):</strong> Led planning and execution of technical workshops and networking events, coordinating teams of up to 20 members.</li>
                 <li><strong>HR Team Lead, <a href="https://www.eestecns.org/" target="_blank">EESTEC LC Novi Sad</a> (2022–2023):</strong> Managed recruitment, onboarding, and team-building for 50+ members.</li>
                 <li><strong>Winner of Origin's Case Study at <a href="https://www.ev-days.rs/" target="_blank">EV DAYS</a>  (2023):</strong> Recognized for innovative problem-solving in electric vehicle systems.</li>
-                 <li><strong>Winner of local round of <a href="https://eestechchallenge.eestec.net/" target="_blank">EESTEC challenge</a> (2025):</strong> Recognized for innovative problem-solving in control systems and engineering</li>
-            
+                <li><strong>Winner of local round of <a href="https://eestechchallenge.eestec.net/" target="_blank">EESTEC challenge</a> (2025):</strong> Recognized for innovative problem-solving in control systems and engineering</li>
             </ul>
         </div>
+        
         <div class="section">
             <h2>Languages</h2>
             <ul>
@@ -422,57 +443,23 @@
 
     <script>
         function downloadPDF() {
-            // Dodaj trenutni URL u dodatni paragraf
+            // Show the dynamic URL in the PDF
             const urlElement = document.getElementById('dynamic-url');
-const urlLinkElement = document.getElementById('dynamic-url-link');
-const currentUrl = window.location.href;
-urlLinkElement.href = currentUrl;
-urlLinkElement.textContent = currentUrl;
-urlElement.style.display = 'block';
-
-            // Dodaj PDF stilove
-            document.body.classList.add('pdf-export');
-
-            const element = document.getElementById('cv-container');
-
-            html2pdf()
-                .set({
-                    margin: [8, 8],
-                    filename: 'Dusan_Grkovic_CV.pdf',
-                    image: { type: 'jpeg', quality: 0.95 },
-                    html2canvas: { 
-                        scale: 1.5,
-                        useCORS: true,
-                        letterRendering: true,
-                        scrollY: 0
-                    },
-                    jsPDF: { 
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait',
-                        compress: true,
-                        precision: 16,
-                        enableLinks: true  // Enable links in PDF
-                    },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Enhanced page break control
-                })
-                .from(element)
-                .toPdf()
-                .get('pdf')
-                .then((pdf) => {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        pdf.setFontSize(8);
-                    }
-                    return pdf;
-                })
-                .save()
-                .finally(() => {
-                    // Resetuj view
-                    document.body.classList.remove('pdf-export');
+            const urlLinkElement = document.getElementById('dynamic-url-link');
+            const currentUrl = window.location.href;
+            urlLinkElement.href = currentUrl;
+            urlLinkElement.textContent = currentUrl;
+            urlElement.style.display = 'block';
+            
+            // Use browser's native print functionality for text-selectable PDFs
+            // This preserves text selection and works with ATS systems
+            setTimeout(() => {
+                window.print();
+                // Hide URL after print dialog closes
+                setTimeout(() => {
                     urlElement.style.display = 'none';
-                });
+                }, 1000);
+            }, 100);
         }
     </script>
 </body>
