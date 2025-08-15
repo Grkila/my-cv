@@ -355,6 +355,17 @@
                 margin-top: 5px;
             }
 
+            /* Show website callout in print */
+            .website-callout {
+                display: block !important;
+                font-size: 0.65em;
+                margin: 8px 0 12px 0;
+                padding: 4px 8px;
+                background: #f8f9fa;
+                border-left: 3px solid #333;
+                color: #333;
+            }
+
             /* Tighten spacing and normalize technology line appearance */
             .project p { color: #000; }
             .project .description p em {
@@ -372,7 +383,8 @@
             <p>dusangrkovic2002@gmail.com | +38163514327</p>
             <p><a href="https://github.com/Grkila" target="_blank">https://github.com/Grkila</a></p>
             <p id="dynamic-url" style="display: none;">
-                <a href="" id="dynamic-url-link"></a>
+                <strong>Interactive CV Website:</strong> <a href="" id="dynamic-url-link"></a><br>
+                <em style="font-size: 0.9em;">Hover over project titles for detailed descriptions and technical specifications</em>
             </p>
         </div>
 
@@ -434,6 +446,7 @@
 
         <div class="section">
             <h2>Key Projects and Achievements</h2>
+            <p class="website-callout" style="display: none;">📍 <strong>Interactive Version Available:</strong> Visit the website below for detailed project descriptions with hover functionality and additional technical information.</p>
             <h3>Robotics and Control Systems</h3>
             <div class="project">
                 <h4>Two-Joint Robot Manipulator Simulation</h4>
