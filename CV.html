@@ -126,6 +126,38 @@
             overflow: hidden;
             transition: max-height 0.3s ease;
         }
+        /* Also expand when toggled (mobile/keyboard) */
+        .project.expanded .description {
+            max-height: 1000px;
+        }
+        /* Hover/tap cue styles appended to each project title */
+        .project h4::after {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.78em;
+            color: #666;
+            font-weight: 400;
+        }
+        /* Desktop pointers: show hover cue */
+        @media (hover: hover) and (pointer: fine) {
+            .project h4::after { content: '— hover for details'; }
+            .project.expanded h4::after { content: '— hide details'; }
+        }
+        /* Touch devices: show tap cue */
+        @media (hover: none) and (pointer: coarse) {
+            .project h4::after { content: '— tap for details'; }
+            .project.expanded h4::after { content: '— hide details'; }
+        }
+        /* Fallback cue */
+        @media not all and (hover: hover) {
+            .project h4::after { content: '— more details'; }
+            .project.expanded h4::after { content: '— hide details'; }
+        }
+        /* Keyboard focus state */
+        .project h4:focus {
+            outline: 2px dashed #bbb;
+            outline-offset: 2px;
+        }
         .project h4:hover ~ .description {
             max-height: 1000px;
         }
@@ -354,6 +386,11 @@
                 font-size: 0.62em;
                 margin-top: 5px;
             }
+            /* Hide interactive cues in print */
+            .project h4::after {
+                display: none !important;
+                content: '' !important;
+            }
 
             /* Show website callout in print */
             .website-callout {
@@ -384,7 +421,6 @@
             <p><a href="https://github.com/Grkila" target="_blank">https://github.com/Grkila</a></p>
             <p id="dynamic-url" style="display: none;">
                 <strong>Interactive CV Website:</strong> <a href="" id="dynamic-url-link"></a><br>
-                <em style="font-size: 0.9em;">Hover over project titles for detailed descriptions and technical specifications</em>
             </p>
         </div>
 
@@ -678,6 +714,52 @@
                 pdfBtn.classList.remove('scrolling');
             }, 400); // 400ms delay after scrolling stops
         });
+
+        // Accessible toggle for project descriptions (mobile/touch + keyboard)
+        (function setupProjectToggles() {
+            const projects = document.querySelectorAll('.project');
+            projects.forEach((project, index) => {
+                const header = project.querySelector('h4');
+                const description = project.querySelector('.description');
+                if (!header || !description) return;
+
+                const descId = `project-desc-${index + 1}`;
+                description.id = descId;
+
+                header.setAttribute('role', 'button');
+                header.setAttribute('tabindex', '0');
+                header.setAttribute('aria-controls', descId);
+                header.setAttribute('aria-expanded', 'false');
+
+                const toggle = () => {
+                    const isExpanded = project.classList.toggle('expanded');
+                    header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                };
+
+                header.addEventListener('click', toggle);
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle();
+                    }
+                });
+            });
+        })();
+
+        // Ensure the print view always has the live website URL populated
+        (function setupPrintUrlInjection() {
+            const applyUrl = () => {
+                const urlElement = document.getElementById('dynamic-url');
+                const urlLinkElement = document.getElementById('dynamic-url-link');
+                if (!urlLinkElement) return;
+                const currentUrl = window.location.href;
+                urlLinkElement.href = currentUrl;
+                urlLinkElement.textContent = currentUrl;
+                // Do not force-show on screen; print CSS will reveal it
+            };
+            document.addEventListener('DOMContentLoaded', applyUrl);
+            window.addEventListener('beforeprint', applyUrl);
+        })();
     </script>
 </body>
 </html>
