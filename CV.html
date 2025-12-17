@@ -436,6 +436,7 @@
             <ul>
                 <li>Relevant Coursework: Robotics, Embedded Systems, Industrial Automation, Signal Processing, Machine Learning</li>
                 <li>Academic Achievements: Consistently high academic record, GPA: 9.1/10.0</li>
+                <li><strong>Diploma Thesis:</strong> Adaptive Gripper with Micro-Vibration Based Slip Detection</li>
             </ul>
             <ul class="print-edu-compact">
                 <li>Focus: Robotics, Embedded/Control Systems; Technologies: MATLAB/Simulink, LabVIEW, PLC (TIA Portal), ROS 2</li>
@@ -484,6 +485,19 @@
             <h2>Key Projects and Achievements</h2>
             <p class="website-callout" style="display: none;">📍 <strong>Interactive Version Available:</strong> Visit the website below for detailed project descriptions with hover functionality and additional technical information.</p>
             <h3>Robotics and Control Systems</h3>
+            <div class="project">
+                <h4>Adaptive Gripper with Micro-Vibration Based Slip Detection (Diploma Thesis)</h4>
+                <div class="description">
+                    <p><em>Technologies: ESP32, FreeRTOS, Python, 3D Magnetic Sensor (TLV493D), Signal Processing (FFT), Mechanical Design (CAD)</em></p>
+                    <ul>
+                        <li>Developed a novel adaptive gripping system using a custom 3D printed flexible sensor element and a TLV493D magnetic sensor to detect incipient slip via micro-vibration analysis (40-120 Hz band). <a href="https://github.com/Grkila/Adaptive-Gripper-with-Micro-Vibration-Based-Slip-Detection" target="_blank">Repository</a></li>
+                        <li>Implemented a dual-core FreeRTOS firmware on ESP32 with a 2 kHz control loop for real-time signal processing, FFT spectral analysis, and PID/FSM control.</li>
+                        <li>Designed and built a custom automated vertical test platform with sensorless homing (TMC2209) to validate the system, eliminating human variability in testing.</li>
+                        <li>Created a Python desktop application for real-time telemetry visualization, data recording, and parameter tuning using a custom JSON-based serial protocol.</li>
+                        <li>Validated the system on various objects (sponge, cardboard, cylinder), achieving stable grasping with minimal force and a reaction time of ~90ms.</li>
+                    </ul>
+                </div>
+            </div>
             <div class="project">
                 <h4>Two-Joint Robot Manipulator Simulation </h4>
                 <div class="description">
